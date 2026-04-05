@@ -143,7 +143,7 @@ export function TransactionModal({
 
           <div>
             <label className="block text-xs font-medium text-[var(--text-muted)]" htmlFor="tx-amount">
-              Amount (USD)
+              Amount (INR)
             </label>
             <input
               id="tx-amount"

@@ -12,7 +12,7 @@ import { useFinanceStore } from '../store/financeStore'
 
 function formatMonthLabel(ym: string): string {
   const [y, m] = ym.split('-').map(Number)
-  return new Date(y!, m! - 1, 1).toLocaleDateString('en-US', {
+  return new Date(y!, m! - 1, 1).toLocaleDateString('en-IN', {
     month: 'long',
     year: 'numeric',
   })

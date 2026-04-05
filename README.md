@@ -35,7 +35,7 @@ npm run preview # serve dist locally
 - **Dark mode** — light / dark / system, with `class="dark"` on `<html>`.
 - **Persistence** — transactions and preferences survive reloads (`localStorage` key `zorvyn-finance-v1`).
 - **Mock API** — **Mock sync** button simulates a delayed fetch and replaces data with a fresh copy of seed data.
-- **Export** — download current transactions as **CSV** or **JSON**.
+- **Export** — **PDF** report (summary + full transaction table via jsPDF), plus **CSV** and **JSON**.
 - **What-if lab** — sliders to **cut all expenses** (0–50%) and **boost all income** (0–40%); live **projected vs baseline** comparison; optional **apply scenario to dashboard** so summary, charts, insights, and the table show adjusted figures (stored data and edits stay real).
 
 ## Project structure (high level)
@@ -49,10 +49,8 @@ npm run preview # serve dist locally
 
 ## Reasonable assumptions
 
-- Currency is **USD** for display only.
-- **Starting balance** (`src/lib/constants.ts`) is used so the **balance trend** and **total balance** card tell a coherent story before the first inflow.
-- **Admin** can add/edit only in the UI;
-
-
+- Currency is **Indian Rupees (INR)** for display and exports; PDF uses **Rs.** for amounts so built-in PDF fonts render reliably (₹ in the web UI via `Intl`).
+- **Starting balance** (`src/lib/constants.ts`) is in the same units (INR) for the balance trend and total balance card.
+- **Admin** can add, edit, and delete in the UI only (no backend).
 
 Built for evaluation: focuses on UI structure, interactions, and clear state handling rather than production hardening.

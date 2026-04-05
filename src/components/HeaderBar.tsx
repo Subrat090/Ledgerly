@@ -126,7 +126,18 @@ export function HeaderBar() {
                 Export
               </button>
               {exportOpen && (
-                <div className="absolute right-0 top-full z-50 mt-1 min-w-[10rem] rounded-lg border border-[var(--border)] bg-[var(--surface)] py-1 shadow-lg transition-opacity">
+                <div className="absolute right-0 top-full z-50 mt-1 min-w-[11rem] rounded-lg border border-[var(--border)] bg-[var(--surface)] py-1 shadow-lg transition-opacity">
+                  <button
+                    type="button"
+                    className="block w-full px-4 py-2 text-left text-sm text-[var(--text-strong)] hover:bg-[var(--surface-2)]"
+                    onClick={async () => {
+                      const { exportFinanceReportPdf } = await import('../lib/exportPdf')
+                      exportFinanceReportPdf(transactions)
+                      setExportOpen(false)
+                    }}
+                  >
+                    Download PDF
+                  </button>
                   <button
                     type="button"
                     className="block w-full px-4 py-2 text-left text-sm text-[var(--text-strong)] hover:bg-[var(--surface-2)]"

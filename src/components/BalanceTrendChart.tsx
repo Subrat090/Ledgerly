@@ -8,7 +8,7 @@ import {
   YAxis,
 } from 'recharts'
 import { useMemo, type ReactNode } from 'react'
-import { formatCurrency } from '../lib/formatCurrency'
+import { formatCompactInr, formatCurrency } from '../lib/formatCurrency'
 import { balanceTrendByMonth } from '../lib/insights'
 import { STARTING_BALANCE } from '../lib/constants'
 import { useEffectiveTransactions, useWhatIfScenarioActive } from '../hooks/useEffectiveTransactions'
@@ -63,7 +63,7 @@ export function BalanceTrendChart() {
               tickLine={false}
             />
             <YAxis
-              tickFormatter={(v) => `$${v / 1000}k`}
+              tickFormatter={(v) => formatCompactInr(Number(v))}
               tick={{ fill: 'var(--text-muted)', fontSize: 11 }}
               axisLine={false}
               tickLine={false}

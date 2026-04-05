@@ -83,7 +83,7 @@ export function balanceTrendByMonth(
       running += t.type === 'income' ? t.amount : -t.amount
     }
     const [y, mo] = m.split('-')
-    const label = new Date(Number(y), Number(mo) - 1, 1).toLocaleDateString('en-US', {
+    const label = new Date(Number(y), Number(mo) - 1, 1).toLocaleDateString('en-IN', {
       month: 'short',
       year: '2-digit',
     })
