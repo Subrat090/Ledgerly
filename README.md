@@ -53,10 +53,6 @@ npm run preview # serve dist locally
 - **Starting balance** (`src/lib/constants.ts`) is used so the **balance trend** and **total balance** card tell a coherent story before the first inflow.
 - **Admin** can add/edit only in the UI; there is no server or auth.
 
-## Deployment
 
-Build with `npm run build` and deploy the `dist` folder to any static host (Netlify, Vercel, GitHub Pages, etc.).
-
----
 
 Built for evaluation: focuses on UI structure, interactions, and clear state handling rather than production hardening.
