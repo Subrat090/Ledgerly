@@ -1,4 +1,4 @@
-import { ArrowUpDown, Pencil, Plus, Search } from 'lucide-react'
+import { ArrowUpDown, Pencil, Plus, Search, Trash2 } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { formatCurrency, formatShortDate } from '../lib/formatCurrency'
 import type { SortField, Transaction } from '../types/transaction'
@@ -26,6 +26,7 @@ export function TransactionsPanel() {
   const setSort = useFinanceStore((s) => s.setSort)
   const addTransaction = useFinanceStore((s) => s.addTransaction)
   const updateTransaction = useFinanceStore((s) => s.updateTransaction)
+  const deleteTransaction = useFinanceStore((s) => s.deleteTransaction)
   const resetToSeed = useFinanceStore((s) => s.resetToSeed)
 
   const filtered = useMemo(
@@ -64,6 +65,17 @@ export function TransactionsPanel() {
     const stored = rawTransactions.find((x) => x.id === t.id)
     setEditing(stored ?? t)
     setModalOpen(true)
+  }
+
+  function handleDelete(id: string, description: string) {
+    if (
+      !window.confirm(
+        `Delete this transaction?\n\n“${description.slice(0, 80)}${description.length > 80 ? '…' : ''}”\n\nThis cannot be undone.`
+      )
+    ) {
+      return
+    }
+    deleteTransaction(id)
   }
 
   function handleSave(payload: {
@@ -164,7 +176,7 @@ export function TransactionsPanel() {
       </div>
 
       <div className="mt-6 overflow-x-auto rounded-xl border border-[var(--border)]">
-        <table className="w-full min-w-[640px] border-collapse text-left text-sm">
+        <table className="w-full min-w-[720px] border-collapse text-left text-sm">
           <thead>
             <tr className="border-b border-[var(--border)] bg-[var(--surface-2)]">
               <th className="px-4 py-3 font-medium text-[var(--text-muted)]">
@@ -197,7 +209,9 @@ export function TransactionsPanel() {
                   align="right"
                 />
               </th>
-              {isAdmin && <th className="px-4 py-3 w-24 text-right font-medium text-[var(--text-muted)]">Edit</th>}
+              {isAdmin && (
+                <th className="px-4 py-3 w-[8.5rem] text-right font-medium text-[var(--text-muted)]">Actions</th>
+              )}
             </tr>
           </thead>
           <tbody>
@@ -260,14 +274,25 @@ export function TransactionsPanel() {
                 </td>
                 {isAdmin && (
                   <td className="px-4 py-3 text-right">
-                    <button
-                      type="button"
-                      onClick={() => openEdit(t)}
-                      className="inline-flex items-center gap-1 rounded-lg border border-[var(--border)] px-2 py-1 text-xs font-medium text-[var(--text-strong)] hover:bg-[var(--surface-2)]"
-                    >
-                      <Pencil className="h-3.5 w-3.5" />
-                      Edit
-                    </button>
+                    <div className="flex flex-wrap items-center justify-end gap-1.5">
+                      <button
+                        type="button"
+                        onClick={() => openEdit(t)}
+                        className="inline-flex items-center gap-1 rounded-lg border border-[var(--border)] px-2 py-1 text-xs font-medium text-[var(--text-strong)] hover:bg-[var(--surface-2)]"
+                      >
+                        <Pencil className="h-3.5 w-3.5" aria-hidden />
+                        Edit
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(t.id, t.description)}
+                        className="inline-flex items-center gap-1 rounded-lg border border-rose-500/30 px-2 py-1 text-xs font-medium text-rose-600 hover:bg-rose-500/10 dark:text-rose-400"
+                        aria-label={`Delete transaction: ${t.description}`}
+                      >
+                        <Trash2 className="h-3.5 w-3.5" aria-hidden />
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 )}
               </tr>
@@ -278,7 +303,7 @@ export function TransactionsPanel() {
 
       {!isAdmin && rawTransactions.length > 0 && (
         <p className="mt-4 text-xs text-[var(--text-muted)]">
-          You are viewing as <strong>Viewer</strong>. Switch role to Admin to add or edit transactions.
+          You are viewing as <strong>Viewer</strong>. Switch role to Admin to add, edit, or delete transactions.
         </p>
       )}
 

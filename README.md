@@ -25,7 +25,7 @@ npm run preview # serve dist locally
 | **Categorical chart** | Donut-style **pie chart** of **expense totals by category**. |
 | **Transactions** | Table with date, description, category, type (income/expense), amount. |
 | **Filter / sort / search** | Filter by type and category; search description/category; sort by date, category, or amount (click column headers). |
-| **Role-based UI** | Header dropdown: **Viewer** (read-only, no add/edit) vs **Admin** (add + edit via modal). |
+| **Role-based UI** | Header dropdown: **Viewer** (read-only) vs **Admin** (add, edit via modal, delete with confirm). |
 | **Insights** | Highest spending category, **month-over-month expense comparison**, simple **savings rate** (income minus expenses as % of income). |
 | **State management** | **Zustand** store: transactions, role, theme, filters, sort; **persist** middleware saves transactions, role, theme, last sync time. |
 | **UX** | Responsive layout, empty states (no data / no filter matches), keyboard-friendly form labels, sticky header. |
@@ -51,7 +51,7 @@ npm run preview # serve dist locally
 
 - Currency is **USD** for display only.
 - **Starting balance** (`src/lib/constants.ts`) is used so the **balance trend** and **total balance** card tell a coherent story before the first inflow.
-- **Admin** can add/edit only in the UI; there is no server or auth.
+- **Admin** can add/edit only in the UI;
 
 
 
